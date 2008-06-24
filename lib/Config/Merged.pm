@@ -1,14 +1,16 @@
 package Config::Merged;
 
-# $Id: Merged.pm 21 2008-06-24 13:53:51Z jhord $
+# $Id: Merged.pm 25 2008-06-24 15:25:53Z jhord $
 
 use strict;
 use warnings;
 
+require 5.006;
+
 use base qw/ Config::Any /;
 
 
-our $VERSION = '0.00';
+our $VERSION = '0.01';
 
 
 sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
@@ -43,8 +45,7 @@ __END__
 
 =head1 NAME
 
-Config::Merged - Load and merge configuration from different
-file formats, transparently.
+Config::Merged - Load and merge configuration from different file formats, transparently.
 
 =head1 SYNOPSIS
 
