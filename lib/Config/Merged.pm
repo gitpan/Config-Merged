@@ -1,0 +1,103 @@
+package Config::Merged;
+
+# $Id: Merged.pm 21 2008-06-24 13:53:51Z jhord $
+
+use strict;
+use warnings;
+
+use base qw/ Config::Any /;
+
+
+our $VERSION = '0.00';
+
+
+sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
+
+sub load_stems { _merge( shift->SUPER::load_stems( @_ ) ) }
+
+sub _merge {
+  my ( $config, @configs ) = map { (%$_)[1] } @{ $_[0] };
+
+  _merge_hash( $config, $_ )
+    for @configs;
+
+  return $config;
+}
+
+sub _merge_hash {
+  my ( $left, $right ) = @_;
+
+  for my $key ( keys %$right ) {
+    if( ref $right->{$key} eq 'HASH' && ref $left->{$key} eq 'HASH' ) {
+      _merge_hash( $left->{$key}, $right->{$key} );
+    }
+    else {
+      $left->{$key} = $right->{$key};
+    }
+  }
+}
+
+
+1;
+__END__
+
+=head1 NAME
+
+Config::Merged - Load and merge configuration from different
+file formats, transparently.
+
+=head1 SYNOPSIS
+
+  use Config::Merged;
+
+  my $cfg = Config::Merged->load_files({ files => \@files, ... });
+
+  # or
+
+  my $cfg = Config::Merged->load_stems({ stems => \@stems, ... });
+
+=head1 DESCRIPTION
+
+L<Config::Merged|Config::Merged> is a subclass of
+L<Config::Any|Config::Any> that returns a single, merged
+configuration structure.  This is simply a re-implementation
+of L<Catalyst|Catalyst::Runtime>'s C<merge_hashes()> wrapped
+around L<Config::Any|Config::Any>.
+
+=head1 METHODS
+
+=over 2
+
+=item load_files( \%args )
+
+Similar to L<Config::Any|Config::Any>'s C<load_files()> method
+except that a single, merged hash is returned.
+
+=item load_stems( \%args )
+
+Similar to L<Config::Any|Config::Any>'s C<load_stems()> method
+except that a single, merged hash is returned.
+
+=back
+
+=head1 BUGS
+
+None are known at this time, but if you find one please
+report it to the author.
+
+=head1 AUTHOR
+
+jason hord E<lt>pravus@cpan.orgE<gt>
+
+=head1 SEE ALSO
+
+L<Config::Any|Config::Any>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2008, jason hord
+
+This module is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
