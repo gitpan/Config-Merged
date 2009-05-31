@@ -1,6 +1,6 @@
 package Config::Merged;
 
-# $Id: Merged.pm 25 2008-06-24 15:25:53Z jhord $
+# $Id$
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ require 5.006;
 use base qw/ Config::Any /;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
@@ -18,7 +18,19 @@ sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
 sub load_stems { _merge( shift->SUPER::load_stems( @_ ) ) }
 
 sub _merge {
-  my ( $config, @configs ) = map { (%$_)[1] } @{ $_[0] };
+  my ( $mixed ) = @_;
+
+  my ( $config, @configs );
+
+  if( ref $mixed eq 'ARRAY' ) {
+    ( $config, @configs ) = map { (%$_)[1] } @$mixed;
+  }
+  elsif( ref $mixed eq 'HASH' ) {
+    ( $config, @configs ) = values %$mixed;
+  }
+  else {
+    die "Config::Any returned something unexpected.  Please contact the author and report this as a bug\n";
+  }
 
   _merge_hash( $config, $_ )
     for @configs;
@@ -83,8 +95,11 @@ except that a single, merged hash is returned.
 
 =head1 BUGS
 
-None are known at this time, but if you find one please
-report it to the author.
+When using the C<flatten_to_hash> option (as documented in
+L<Config::Any|Config::Any>), the order of the configuration
+files cannot be guaranteed which may result in improper
+precedence during merging.  It is recommended that this option
+never be used when using L<Config::Merged|Config::Merged>.
 
 =head1 AUTHOR
 
@@ -96,7 +111,7 @@ L<Config::Any|Config::Any>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2008, jason hord
+Copyright (c) 2008-2009, jason hord
 
 This module is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

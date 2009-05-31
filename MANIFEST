@@ -12,10 +12,12 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Config/Merged.pm
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
 META.yml
 README
 t/00-load.t
 t/01-merge.t
 t/conf/conf0.pl
 t/conf/conf1.pl
+t/conf/conf2.pl
+t/conf/conf3.pl

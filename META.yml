@@ -3,14 +3,17 @@ abstract: 'Load and merge configuration from different file formats, transparent
 author:
   - 'jason hord <pravus@cpan.org>'
 build_requires:
+  ExtUtils::MakeMaker: 6.42
   Test::Deep: 0.00
   Test::More: 0.00
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.75'
+generated_by: 'Module::Install version 0.91'
 license: perl
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
 name: Config-Merged
 no_index:
   directory:
@@ -19,4 +22,6 @@ no_index:
 requires:
   Config::Any: 0.00
   perl: 5.6.0
-version: 0.01
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.02

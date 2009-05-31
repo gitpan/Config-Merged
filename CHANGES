@@ -1,3 +1,9 @@
+changes from 0.01 to 0.02
+-------------------------
+
+  * added handling in case 'flatten_to_hash' is used
+
+
 changes from 0.00 to 0.01
 -------------------------
 
