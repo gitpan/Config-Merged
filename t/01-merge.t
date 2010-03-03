@@ -26,7 +26,7 @@ use Config::Merged;
   }
 
   {
-    my @stems  = qw# t/conf/conf0 t/conf/conf/1 #;
+    my @stems  = qw# t/conf/conf0 t/conf/conf1 #;
     my $config = Config::Merged->load_stems({ stems => \@stems, use_ext => 1 });
     cmp_deeply( $config, $expected, 'load_stems' );
   }

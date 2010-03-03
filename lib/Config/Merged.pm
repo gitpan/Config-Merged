@@ -10,7 +10,7 @@ require 5.006;
 use base qw/ Config::Any /;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
