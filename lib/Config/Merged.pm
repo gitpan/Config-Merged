@@ -1,16 +1,14 @@
 package Config::Merged;
 
-# $Id$
-
 use strict;
 use warnings;
 
 require 5.006;
 
-use base qw/ Config::Any /;
+use base qw( Config::Any );
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 
 sub load_files { _merge( shift->SUPER::load_files( @_ ) ) }
@@ -52,46 +50,43 @@ sub _merge_hash {
 }
 
 
-1;
+1
 __END__
+
+=pod
 
 =head1 NAME
 
-Config::Merged - Load and merge configuration from different file formats, transparently.
+Config::Merged - Load and merge configuration from different file formats, transparently
 
 =head1 SYNOPSIS
 
   use Config::Merged;
 
-  my $cfg = Config::Merged->load_files({ files => \@files, ... });
+  my $config = Config::Merged->load_files({ files => \@files, ... });
 
   # or
 
-  my $cfg = Config::Merged->load_stems({ stems => \@stems, ... });
+  my $config = Config::Merged->load_stems({ stems => \@stems, ... });
 
 =head1 DESCRIPTION
 
-L<Config::Merged|Config::Merged> is a subclass of
-L<Config::Any|Config::Any> that returns a single, merged
-configuration structure.  This is simply a re-implementation
-of L<Catalyst|Catalyst::Runtime>'s C<merge_hashes()> wrapped
-around L<Config::Any|Config::Any>.
+Config::Merged is a subclass of L<Config::Any|Config::Any> that
+returns a single, merged configuration structure.  This is simply
+a re-implementation of L<Catalyst|Catalyst::Runtime>'s C<merge_hashes()>
+wrapped around L<Config::Any|Config::Any>.
 
 =head1 METHODS
 
-=over 2
-
-=item load_files( \%args )
+=head2 load_files( \%args )
 
 Similar to L<Config::Any|Config::Any>'s C<load_files()> method
 except that a single, merged hash is returned.
 
-=item load_stems( \%args )
+=head2 load_stems( \%args )
 
 Similar to L<Config::Any|Config::Any>'s C<load_stems()> method
 except that a single, merged hash is returned.
-
-=back
 
 =head1 BUGS
 
@@ -107,11 +102,15 @@ jason hord E<lt>pravus@cpan.orgE<gt>
 
 =head1 SEE ALSO
 
-L<Config::Any|Config::Any>
+=over 4
+
+=item L<Config::Any|Config::Any>
+
+=back
 
 =head1 COPYRIGHT
 
-Copyright (c) 2008-2009, jason hord
+Copyright (c) 2008-2014, jason hord
 
 This module is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
